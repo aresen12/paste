@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Для просмотра этого теста введите пароль</h2>
+<form method="post" style="font-size:170%;" class="form2 login-form" action="/check">
+    <div class="form-container">
+        <label>пароль</label>
+        <input type="password" name="password"> 
+        <button type="submit" class="btn btn-primary submit_btn">
+            показать
+        </button>
+        <input style="display:none;" name="id_mess" value="{{message.id}}">
+  </div>
+</form>
+{% endblock %}
