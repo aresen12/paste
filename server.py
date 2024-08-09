@@ -29,6 +29,16 @@ def load_user(user_id):
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route("/check", methods=["POST"])
+def check():
+    db_sess = db_session.create_session()
+    mess = db_sess.query(Paste).filter(Paste.id == request.form["id_mess"]).first()
+    if mess.check_password(request.form["password"]):
+        return render_template("watching.html", message=mess, href=f"http://{my_ip}:{port}/{mess.id}")
+    else:
+        return render_template("check.html", message=mess, error="Bad password")
     
     
 @app.route('/login', methods=['GET', 'POST'])
@@ -68,7 +78,7 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
-@app.route("/main")
+@app.route("/main", methods=["GET", "POST"])
 @app.route("/", methods=["GET", "POST"])
 def main():
     if request.method == "GET":
@@ -80,6 +90,11 @@ def main():
             new_paste.name_sender = current_user.name
         else:
             new_paste.name_sender = "Анонимный пользователь"
+            
+        print(request.form.getlist('secret'))
+        if request.form.getlist('secret')!= list():
+            new_paste.secret = 1
+            new_paste.set_password(request.form["password"])
         print(request.form["about"])
         new_paste.message = request.form["about"]
         db_sess.add(new_paste)
@@ -91,11 +106,9 @@ def main():
 def watching(id_mess):
     db_sess = db_session.create_session()
     mess = db_sess.query(Paste).filter(Paste.id == id_mess).first()
+    if mess.secret:
+        return render_template("check.html", message=mess)
     return render_template("watching.html", message=mess, href=f"http://{my_ip}:{port}/{id_mess}")
-    
-    
-
-    
     
     
 if __name__ == "__main__":

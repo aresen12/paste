@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+<script>$ function copyToClipboard() {
+    var text = "{{ href }}";
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", "{{ href }}");
+}</script>
+<div style="display:none;" id="demo">{{ href }}</div>
 <h1>Для обмена текстом поделитесь ссылкой!</h1>
-<a href="{{href}}">ссылка на текст</a>
-<h2>текст:</h2>
+<button style="display:none;" onclick="copyToClipboard">копировать ссылку на текст</button>
+<h2>текст от {{ message.name_sender }}</h2>
 <form method="post" style="font-size:170%;" class="form2" enctype="multipart/form-data">
-<textarea class="form-control" id="about" name="about">{{ message.message }}</textarea>
+<textarea class="form-control" id="about" rows="10"  name="about">{{ message.message }}</textarea>
 </form>
 {% endblock %}

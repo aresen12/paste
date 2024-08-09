@@ -6,3 +6,9 @@ width:40vw;
 background: #ccccff;
 padding:10px;
 }
+.passwordDiv {display:none;}
+.hello {
+    width:60vw;
+    margin-right:auto;
+    margin-left:auto;
+}

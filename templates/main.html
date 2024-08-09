@@ -1,13 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-<div>добро пожаловать в текстообменник!</div>
+<script>function showDiv(Div) {
+    var x = document.getElementById(Div);
+    if(x.style.display=="none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+<h1 class="hello">добро пожаловать в текстообменник!</h1>
+<div>
 <h2>Новая публикация</h2>
-<form method="post" style="font-size:170%;" class="form2" enctype="multipart/form-data">
+<form method="post" style="font-size:170%;" class="form2 login-form" enctype="multipart/form-data">
     <div class="form-container">
         <textarea class="form-control" id="about" rows="10" name="about"></textarea>
+        <div>
+        <label>пароль</label>
+        <input type="checkbox" name="secret" value="false" id="secret" onclick="showDiv('passwordDiv')"/>
+        </div>
+        <div id="passwordDiv" class="passwordDiv" class="form-control" style="display:none;">
+        <input type="password" name="password">
+        </div>
         <button type="submit" class="btn btn-primary submit_btn">
             <svg width="30px" height="29px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 466.897 466.897" style="enable-background:new 0 0 466.897 466.897;" xml:space="preserve"><g><g><polygon style="fill:#010002;" points="374.105,73.807 203.974,318.03 203.974,432.042 259.801,358.275 410.505,466.897 441.012,0 25.885,189.672 143.823,274.681 "/></g></g></svg>
         </button>
   </div>
 </form>
+</div>
 {% endblock %}
