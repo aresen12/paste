@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" href="/static/img/icon.ico">
+    <title>{{ title }}</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark" style="color:white; background:black;">
+        <a class="navbar-brand" href="/main">Главная</a>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" zoomAndPan="magnify" viewBox="0 0 30 30.000001" height="40" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="id1"><path d="M 3.386719 18 L 26.613281 18 L 26.613281 23.988281 L 3.386719 23.988281 Z M 3.386719 18 " clip-rule="nonzero"/></clipPath><clipPath id="id2"><path d="M 3.386719 12 L 26.613281 12 L 26.613281 19 L 3.386719 19 Z M 3.386719 12 " clip-rule="nonzero"/></clipPath><clipPath id="id3"><path d="M 3.386719 7.296875 L 26.613281 7.296875 L 26.613281 13 L 3.386719 13 Z M 3.386719 7.296875 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#id1)"><path fill="rgb(80.778503%, 12.548828%, 15.689087%)" d="M 26.605469 21.421875 C 26.605469 22.839844 25.449219 23.988281 24.027344 23.988281 L 5.972656 23.988281 C 4.550781 23.988281 3.394531 22.839844 3.394531 21.421875 L 3.394531 18.851562 L 26.605469 18.851562 Z M 26.605469 21.421875 " fill-opacity="1" fill-rule="nonzero"/></g><g clip-path="url(#id2)"><path fill="rgb(13.328552%, 25.099182%, 54.899597%)" d="M 3.394531 12.429688 L 26.605469 12.429688 L 26.605469 18.851562 L 3.394531 18.851562 Z M 3.394531 12.429688 " fill-opacity="1" fill-rule="nonzero"/></g><g clip-path="url(#id3)"><path fill="rgb(93.328857%, 93.328857%, 93.328857%)" d="M 24.027344 7.296875 L 5.972656 7.296875 C 4.550781 7.296875 3.394531 8.445312 3.394531 9.863281 L 3.394531 12.429688 L 26.605469 12.429688 L 26.605469 9.863281 C 26.605469 8.445312 25.449219 7.296875 24.027344 7.296875 Z M 24.027344 7.296875 " fill-opacity="1" fill-rule="nonzero"/></g></svg>
+        <p>
+            <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
+            <a class="btn btn-success" href="/login">Войти</a>
+        </p>
+    </nav>
+</header>
+<main role="main">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
