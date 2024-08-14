@@ -6,7 +6,7 @@ from data import db_session
 from data.user import User
 from forms.register_form import RegisterForm
 from data.paste import Paste
-
+import sqlite3
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def check():
     if mess.check_password(request.form["password"]):
         return render_template("watching.html", message=mess, href=f"http://{my_ip}:{port}/{mess.id}")
     else:
-        return render_template("check.html", message=mess, error="Bad password")
+        return render_template("check.html", message=mess, errors=["Bad password"])
     
     
 @app.route('/login', methods=['GET', 'POST'])
@@ -77,7 +77,21 @@ def reqister():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
-
+    
+    
+@app.route("/profile")
+def profile():
+    if current_user.is_authenticated:
+        if current_user.list_message:
+            conn = sqlite3.connect('db/master_paste.db')
+            curr = conn.cursor()
+            paste = curr.execute(f"""SELECT * FROM paste
+            WHERE paste.id IN ({current_user.list_message})""").fetchall()
+            conn.close()
+        return render_template("profile.html", title=profile, pastes=paste, href=f"{my_ip}:{port}")
+    return redirect("/")
+     
+     
 @app.route("/main", methods=["GET", "POST"])
 @app.route("/", methods=["GET", "POST"])
 def main():
@@ -85,12 +99,7 @@ def main():
         return render_template("main.html", title='главная')
     else:
         db_sess = db_session.create_session()
-        new_paste = Paste()
-        if current_user.is_authenticated:
-            new_paste.name_sender = current_user.name
-        else:
-            new_paste.name_sender = "Анонимный пользователь"
-            
+        new_paste = Paste() 
         print(request.form.getlist('secret'))
         if request.form.getlist('secret')!= list():
             new_paste.secret = 1
@@ -98,6 +107,17 @@ def main():
         print(request.form["about"])
         new_paste.message = request.form["about"]
         db_sess.add(new_paste)
+        if current_user.is_authenticated:
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            new_paste.name_sender = current_user.name
+            db_sess.commit()
+            if not current_user.list_message is None:
+                user.list_message += f" {new_paste.id}"
+            else:
+                user.list_message = f"{new_paste.id}"
+                
+        else:
+            new_paste.name_sender = "Анонимный пользователь"
         db_sess.commit()
         return redirect(f"/{new_paste.id}")
     

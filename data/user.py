@@ -15,6 +15,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     address = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
+    list_message = sqlalchemy.Column(sqlalchemy.String, nullable=True, default="")
 
     def set_password(self, password):
         salt = "5gz"
