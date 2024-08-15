@@ -6,10 +6,48 @@ width:40vw;
 background: #ccccff;
 padding:10px;
 }
+
+
 .passwordDiv {display:none;}
+
+
 .hello {
     width:60vw;
     margin-right:auto;
     margin-left:auto;
 }
-.error {position:relative;width:40vw;left:10vw;top:20vh;}
+
+
+.error {position:relative;
+    width:40vw;
+    left:10vw;
+    top:20vh;
+    }
+.text-profile {width:40vw;}
+
+
+.date {
+    margin-left:auto;
+    margin-right:auto;
+    color:gray;
+    display:flex;
+    justify-content:center;
+    }
+    
+    
+.login-h1 {
+position:relative;
+    top:3vh;
+    width: 50vw;
+    left:40vw;
+}
+
+
+.login-form {
+
+    margin:auto;
+    position:relative;
+    top:5vh;
+    width:70vw;
+}
+

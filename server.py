@@ -88,7 +88,7 @@ def profile():
             paste = curr.execute(f"""SELECT * FROM paste
             WHERE paste.id IN ({current_user.list_message})""").fetchall()
             conn.close()
-        return render_template("profile.html", title=profile, pastes=paste, href=f"{my_ip}:{port}")
+        return render_template("profile.html", title='профиль', pastes=paste, href=f"{my_ip}:{port}")
     return redirect("/")
      
      
@@ -126,6 +126,8 @@ def main():
 def watching(id_mess):
     db_sess = db_session.create_session()
     mess = db_sess.query(Paste).filter(Paste.id == id_mess).first()
+    if mess is None:
+        return redirect("/")
     if mess.secret:
         return render_template("check.html", message=mess)
     return render_template("watching.html", message=mess, href=f"http://{my_ip}:{port}/{id_mess}")
